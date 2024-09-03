@@ -18,9 +18,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Почтовые службы: {'Название': {'abbr': 'сокращение', 'url': 'Адрес сайта', 'imap': 'адрес для imap'}
-AVAILABLE_MAIL_PROVIDERS = [{'name': 'Gmail', 'url': 'imap.gmail.com'},
+AVAILABLE_EMAIL_PROVIDERS = [{'name': 'Gmail', 'url': 'imap.gmail.com'},
                             {'name': 'Mail.ru', 'url': 'imap.mail.ru'},
-                            {'name': 'Yandex mail', 'url': 'imap.yandex.ru'},
+                            {'name': 'Yandex', 'url': 'imap.yandex.ru'},
                             ]
 
 load_dotenv(BASE_DIR / '.env')

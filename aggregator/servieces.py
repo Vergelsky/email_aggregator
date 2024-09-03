@@ -6,19 +6,18 @@ logger = logging.getLogger(__name__)
 
 class EmailService:
     def __init__(self, email_account):
-        logger.info('Инициализация')
         self.email_account = email_account
 
     def __enter__(self):
         logger.info('Подключение к почтовой службе')
         try:
             self.mail = imaplib.IMAP4_SSL(self.email_account.provider)
+            logger.info(f'Подключено: {self.email_account.provider}')
         except Exception as e:
             logger.error(e)
-            logger.info(f'Подключено: {self.email_account.provider}')
         try:
             self.mail.login(self.email_account.email, self.email_account.password)
-            logger.info(f'Логин: {self.email_account.email}')
+            logger.info(f'Логин успешно: {self.email_account.email}')
         except Exception as e:
             logger.error(e)
 

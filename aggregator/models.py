@@ -1,11 +1,11 @@
 from django.db import models
-from config.settings import AVAILABLE_MAIL_PROVIDERS
+from config.settings import AVAILABLE_EMAIL_PROVIDERS
 
 NULLABLE = {'null': True, 'blank': True}
 
 
 class EmailAccount(models.Model):
-    PROVIDER_CHOICES = tuple((provider['url'], provider['name']) for provider in AVAILABLE_MAIL_PROVIDERS)
+    PROVIDER_CHOICES = tuple((provider['url'], provider['name']) for provider in AVAILABLE_EMAIL_PROVIDERS)
 
     email = models.EmailField(unique=True, verbose_name='Адрес')
     password = models.CharField(max_length=35, verbose_name='Пароль')
