@@ -26,3 +26,9 @@ class TestEmailService(TestCase):
             logging.info("запущен тест подключения к " + e_service.email_account.email)
             with e_service as es:
                 self.assertEqual(es.mail.noop()[0], 'OK')
+
+    def test_select_inbox(self):
+        for e_service in self.email_services:
+            logging.info("запущен тест выбора папки в аккаунте " + e_service.email_account.email)
+            with e_service as es:
+                self.assertEqual(es.select_inbox()[0], 'OK')

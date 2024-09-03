@@ -31,4 +31,16 @@ class EmailService:
             print(f"Exiting with exception {exc_type}")
         return False
 
+    def select_inbox(self):
+
+        logging.info('Подключение к INBOX в '+ self.email_account.email +'...')
+        try:
+            resp = self.mail.select("INBOX")
+            logging.info('Успешно подключено к INBOX в '+ self.email_account.email)
+        except e as e:
+            logging.info('Подключение к INBOX в ' + self.email_account.email + ' не удалось')
+            logging.error(e)
+
+        return self.mail.select("INBOX")
+
 

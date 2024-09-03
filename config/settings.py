@@ -23,6 +23,8 @@ AVAILABLE_EMAIL_PROVIDERS = [{'name': 'Gmail', 'url': 'imap.gmail.com'},
                             {'name': 'Yandex', 'url': 'imap.yandex.ru'},
                             ]
 
+INITIAL_MESSAGE_LOAD_LIMIT = 20
+
 load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
