@@ -1,18 +1,15 @@
 from django.db import models
+from config.settings import AVAILABLE_MAIL_PROVIDERS
 
 NULLABLE = {'null': True, 'blank': True}
 
 
 class EmailAccount(models.Model):
-    PROVIDER_CHOICES = (
-        ('gmail', 'Gmail'),
-        ('mailru', 'Mail.ru'),
-        ('yandex', 'Yandex.ru'),
-    )
+    PROVIDER_CHOICES = tuple((provider['url'], provider['name']) for provider in AVAILABLE_MAIL_PROVIDERS)
 
     email = models.EmailField(unique=True, verbose_name='Адрес')
     password = models.CharField(max_length=35, verbose_name='Пароль')
-    provider = models.CharField(choices=PROVIDER_CHOICES, max_length=10, verbose_name='Адрес электронной почты')
+    provider = models.CharField(choices=PROVIDER_CHOICES, max_length=250, verbose_name='Адрес электронной почты')
 
     class Meta:
         verbose_name = 'Аккаунт электронной почты'
