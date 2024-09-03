@@ -1,0 +1,7 @@
+DJANGO_SECRET_KEY = 'django-insecure-az_(x+1yox!&os*vms*#$1wnole+xv4n=kh0+495q58c0c5s27'
+POSTGRES_NAME = 'aggreagtor_db'
+POSTGRES_USER = 'postgres'
+POSTGRES_PASSWORD = '5432'
+GMAIL_EMAIL_PASSWORD = 'remi pyko ikea pork'
+YANDEX_EMAIL_PASSWORD = 'dpxqhtyjhxicdvyu'
+MAIL.RU_EMAIL_PASSWORD = 'z0JpLHH0qveMcZYxB43f'
