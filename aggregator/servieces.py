@@ -9,6 +9,7 @@ class EmailService:
         self.email_account = email_account
 
     def __enter__(self):
+        self._entered = True
         logger.info('Подключение к почтовой службе')
         try:
             self.mail = imaplib.IMAP4_SSL(self.email_account.provider)
@@ -24,6 +25,7 @@ class EmailService:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        self._entered = False
         logger.info('Отключение от почтовой службы')
         if exc_type is None:
             print("Exiting normally")
@@ -35,12 +37,29 @@ class EmailService:
 
         logging.info('Подключение к INBOX в '+ self.email_account.email +'...')
         try:
-            resp = self.mail.select("INBOX")
+            response = self.mail.select()
             logging.info('Успешно подключено к INBOX в '+ self.email_account.email)
-        except e as e:
+            return response
+        except Exception as e:
             logging.info('Подключение к INBOX в ' + self.email_account.email + ' не удалось')
             logging.error(e)
 
-        return self.mail.select("INBOX")
 
 
+    def get_last_emails(self, count):
+        """
+        Выбирает идентификаторы последних count писем
+        :param count: Количество идентификаторов
+        :return: (is_ok, uids)
+        """
+        if not self._entered:
+            raise RuntimeError("Метод должен быть вызван с контекстным менеджером")
+        logging.info('Получение идентификаторов последних ' + str(count) + ' писем')
+        try:
+            is_ok, uids = self.mail.uid('search', 'ALL')
+            uids = uids[0].split()
+            uids = uids[-count:]
+            logging.info('Идентификаторы получены')
+            return is_ok, uids
+        except Exception as e:
+            logging.error(e)

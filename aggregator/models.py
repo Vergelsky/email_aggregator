@@ -17,6 +17,7 @@ class EmailAccount(models.Model):
 
 
 class EmailMessage(models.Model):
+    uid = models.PositiveIntegerField(verbose_name='Идентификатор письма')
     account = models.ForeignKey(EmailAccount, on_delete=models.CASCADE, verbose_name='Аккаунт')
     subject = models.CharField(max_length=255, verbose_name='Тема', **NULLABLE)
     sent_date = models.DateTimeField(verbose_name='Дата отправки')

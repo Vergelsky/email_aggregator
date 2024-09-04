@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from aggregator.models import EmailAccount
 from aggregator.servieces import EmailService
-from config.settings import AVAILABLE_EMAIL_PROVIDERS
+from config.settings import AVAILABLE_EMAIL_PROVIDERS, INITIAL_MESSAGE_LOAD_LIMIT
 import logging
 
 logging = logging.getLogger(__name__)
@@ -31,4 +31,15 @@ class TestEmailService(TestCase):
         for e_service in self.email_services:
             logging.info("запущен тест выбора папки в аккаунте " + e_service.email_account.email)
             with e_service as es:
-                self.assertEqual(es.select_inbox()[0], 'OK')
+                res = es.select_inbox()
+                logging.info(res[1])
+                self.assertEqual(res[0], 'OK')
+
+    def test_get_last_emails(self):
+        for e_service in self.email_services:
+            logging.info("запущен тест получения последних писем в аккаунте " + e_service.email_account.email)
+            with e_service as es:
+                es.select_inbox()
+                res = es.get_last_emails(INITIAL_MESSAGE_LOAD_LIMIT)
+                logging.info(res)
+                self.assertEqual(res[0], 'OK')
