@@ -27,19 +27,28 @@ class TestEmailService(TestCase):
             with e_service as es:
                 self.assertEqual(es.mail.noop()[0], 'OK')
 
-    def test_select_inbox(self):
+    def test_select_folder(self):
         for e_service in self.email_services:
             logging.info("запущен тест выбора папки в аккаунте " + e_service.email_account.email)
             with e_service as es:
-                res = es.select_inbox()
+                res = es.select_folder("INBOX")
                 logging.info(res[1])
                 self.assertEqual(res[0], 'OK')
 
-    def test_get_last_emails(self):
+    def test_get_emails_uids(self):
         for e_service in self.email_services:
-            logging.info("запущен тест получения последних писем в аккаунте " + e_service.email_account.email)
+            logging.info("запущен тест получения uid писем в аккаунте " + e_service.email_account.email)
             with e_service as es:
-                es.select_inbox()
-                res = es.get_last_emails(INITIAL_MESSAGE_LOAD_LIMIT)
+                res = es.get_emails_uids(INITIAL_MESSAGE_LOAD_LIMIT)
+                logging.info(res)
+                self.assertEqual(res[0], 'OK')
+
+    def test_get_letter_by_uid(self):
+        for e_service in self.email_services:
+            logging.info("запущен тест получения письма в аккаунте " + e_service.email_account.email)
+            with e_service as es:
+                uids = es.get_emails_uids(INITIAL_MESSAGE_LOAD_LIMIT)
+                logging.info(uids[1])
+                res = es.get_letter_by_uid(uids[1][0])
                 logging.info(res)
                 self.assertEqual(res[0], 'OK')
