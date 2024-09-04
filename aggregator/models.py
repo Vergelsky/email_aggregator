@@ -21,7 +21,7 @@ class EmailMessage(models.Model):
     account = models.ForeignKey(EmailAccount, on_delete=models.CASCADE, verbose_name='Аккаунт')
     subject = models.CharField(max_length=255, verbose_name='Тема', **NULLABLE)
     sent_date = models.DateTimeField(verbose_name='Дата отправки')
-    received_date = models.DateTimeField(verbose_name='Дата получения')
+    received_date = models.DateTimeField(auto_now=True, verbose_name='Дата получения')
     body = models.TextField(max_length=5000, verbose_name='Текст письма', **NULLABLE)
     attachments = models.FileField(upload_to='attachments', verbose_name='Вложения', **NULLABLE)
 
