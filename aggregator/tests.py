@@ -16,7 +16,7 @@ class TestEmailService(TestCase):
 
     def setUp(self):
         for provider in AVAILABLE_EMAIL_PROVIDERS:
-            EmailAccount.objects.create(email=f'graf.werger@{provider['url'][5:]}', provider=provider['url'],
+            EmailAccount.objects.create(email=f'graf.werger@{provider['url']}', provider=provider['url_imap'],
                                         password=os.getenv(f'{provider['name'].upper()}_EMAIL_PASSWORD'))
 
         self.email_services = []
@@ -64,7 +64,7 @@ class TestParseLetterService(TestCase):
         self.email_services = []
         self.letters = []
         for provider in AVAILABLE_EMAIL_PROVIDERS:
-            EmailAccount.objects.create(email=f'graf.werger@{provider['url'][5:]}', provider=provider['url'],
+            EmailAccount.objects.create(email=f'graf.werger@{provider['url']}', provider=provider['url_imap'],
                                         password=os.getenv(f'{provider['name'].upper()}_EMAIL_PASSWORD'))
 
         for account in EmailAccount.objects.all():

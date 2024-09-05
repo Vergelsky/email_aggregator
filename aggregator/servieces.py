@@ -108,8 +108,8 @@ class ParseLetterService:
     """
 
     def __init__(self, msg):
-        logger.info(f' {self.__class__.__name__}: ' + 'Извлечение объекта письма')
-        self.msg = email.message_from_bytes(msg[1])
+        logger.info(f' {self.__class__.__name__}: ' + 'Создан объект ParseLetterService')
+        self.msg = email.message_from_bytes(msg[0][1])
 
     def get_uid(self):
         logger.info(f' {self.__class__.__name__}: ' + 'Получение идентификатора письма')
@@ -119,7 +119,7 @@ class ParseLetterService:
         logger.info(f' {self.__class__.__name__}: ' + 'Получение темы письма')
         subject = email.header.decode_header(self.msg['Subject'])[0]
         subject_encoding = subject[1]
-        subject = subject.decode(subject_encoding)
+        subject = subject[0].decode(subject_encoding)
         return subject
 
     def get_date(self):
@@ -134,7 +134,7 @@ class ParseLetterService:
                 if part.get_content_subtype() == 'html':
                     html_content = part.get_payload(decode=True)
                     soup = BeautifulSoup(html_content, "html.parser")
-                    text_content = soup.get_text()
+                    text_content = soup.get_text(strip=True)
                 elif part.get_content_subtype() == 'plain':
                     text_content = part.get_payload(decode=True)
         return text_content
