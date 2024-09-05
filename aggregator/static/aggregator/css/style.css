@@ -1,0 +1,11 @@
+.bg-orange {
+    background-color: #f77f00;
+}
+.btn-orange {
+    background-color: #f77f00;
+    border-color: #f77f00;
+    color: white;
+}
+.hidden {
+    display: none;
+}
