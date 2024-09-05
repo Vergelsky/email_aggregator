@@ -18,9 +18,9 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Почтовые службы: {'Название': {'abbr': 'сокращение', 'url': 'Адрес сайта', 'imap': 'адрес для imap'}
-AVAILABLE_EMAIL_PROVIDERS = [{'name': 'Gmail', 'url': 'imap.gmail.com'},
-                            {'name': 'Mail.ru', 'url': 'imap.mail.ru'},
-                            {'name': 'Yandex', 'url': 'imap.yandex.ru'},
+AVAILABLE_EMAIL_PROVIDERS = [{'name': 'Gmail', 'url_imap': 'imap.gmail.com', 'url': 'gmail.com'},
+                             {'name': 'Mail.ru', 'url_imap': 'imap.mail.ru', 'url': 'mail.ru'},
+                             {'name': 'Yandex', 'url_imap': 'imap.yandex.ru', 'url': 'yandex.ru'},
                             ]
 
 INITIAL_MESSAGE_LOAD_LIMIT = 20
@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
+    'channels',
 
     'aggregator',
 ]
@@ -94,6 +96,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center bg-orange text-white">
+                        Передача учетных данных
+                    </div>
+                    <div class="card-body">
+                        <form id="accountForm">
+                            <div id="accountFormContent">
+                                {% csrf_token %}
+                                <div class="form-group mb-3">
+                                    <label for="username">Имя пользователя</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="username" name="username" required>
+                                        <span class="input-group-text">@</span>
+                                        <select id="provider" name="provider" class="form-select" required>
+                                            {% for provider in providers %}
+                                                <option value="{{ provider_url }}">{{ provider.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="password">Пароль приложения</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <div id="formButtons" class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-orange">Сохранить данные</button>
+                                </div>
+                            </div>
+                            <div id="successMessage" class="hidden text-center">
+                                <button id="addAnother" class="btn btn-orange mb-3">Добавить еще аккаунт</button>
+                                <button id="goToMessages" class="btn btn-orange mb-3">Перейти к письмам</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var csrftoken = '{{ csrf_token }}';
+        var urls = {
+            createAccount: "{% url 'accounts' %}"
+        };
+    </script>
+    <script src="{% static 'aggregator/js/form.js' %}"></script>
+{% endblock %}
