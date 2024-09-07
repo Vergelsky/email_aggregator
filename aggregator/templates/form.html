@@ -20,7 +20,7 @@
                                         <span class="input-group-text">@</span>
                                         <select id="provider" name="provider" class="form-select" required>
                                             {% for provider in providers %}
-                                                <option value="{{ provider_url }}">{{ provider.name }}</option>
+                                                <option value="{{ provider.url }}">{{ provider.name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

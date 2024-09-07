@@ -1,4 +1,6 @@
 from django import forms
+
+from config.settings import AVAILABLE_EMAIL_PROVIDERS
 from .models import EmailAccount
 from django.conf import settings
 
@@ -12,6 +14,5 @@ class EmailAccountForm(forms.ModelForm):
         fields = ['username', 'provider', 'password']
 
     def __init__(self, *args, **kwargs):
-        provider_choices = kwargs.pop('provider_choices', [])
         super().__init__(*args, **kwargs)
-        self.fields['provider'].choices = [(provider['url'], provider['name']) for provider in provider_choices]
+        self.fields['provider'].choices = [(prov['url'], prov['name']) for prov in AVAILABLE_EMAIL_PROVIDERS]

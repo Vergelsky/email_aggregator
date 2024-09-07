@@ -13,7 +13,7 @@ def index(request):
 
 def create_email_account(request):
     if request.method == 'POST':
-        form = EmailAccountForm(request.POST, provider_choices=AVAILABLE_EMAIL_PROVIDERS)
+        form = EmailAccountForm(request.POST)
         if form.is_valid():
             # Создаем новый объект EmailAccount
             email_account = EmailAccount(
@@ -24,6 +24,6 @@ def create_email_account(request):
             email_account.save()
             return redirect(reverse('index'))
     else:
-        form = EmailAccountForm(provider_choices=AVAILABLE_EMAIL_PROVIDERS)
+        form = EmailAccountForm()
 
     return render(request, 'form.html', {'form': form, 'providers': AVAILABLE_EMAIL_PROVIDERS})
